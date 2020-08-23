@@ -26,6 +26,22 @@ describe "CLI Jukebox" do
       end
     end
 
+    describe "#list" do
+      it "lists out the available songs" do
+        expect( $stdout ).to receive(:puts).with(/1. Phoenix - 1901/)
+        expect( $stdout ).to receive(:puts).with(/2. Tokyo Police Club - Wait Up/)
+        expect( $stdout ).to receive(:puts).with(/3. Sufjan Stevens - Too Much/)
+        expect( $stdout ).to receive(:puts).with(/4. The Naked and the Famous - Young Blood/)
+        expect( $stdout ).to receive(:puts).with(/5. \(Far From\) Home - Tiga/)
+        expect( $stdout ).to receive(:puts).with(/6. The Cults - Abducted/)
+        expect( $stdout ).to receive(:puts).with(/7. Phoenix - Consolation Prizes/)
+        expect( $stdout ).to receive(:puts).with(/8. Harry Chapman - Cats in the Cradle/)
+        expect( $stdout ).to receive(:puts).with(/9. Amos Lee - Keep It Loose, Keep It Tight/)
+        list(songs)
+      end
+    end
+
+
     describe '#play' do
       it "can find a song when given a number from the user" do
         allow(self).to receive(:gets).and_return("1")
@@ -57,20 +73,6 @@ describe "CLI Jukebox" do
       end
     end
 
-    describe "#list" do
-      it "lists out the available songs" do
-        expect( $stdout ).to receive(:puts).with(/1. Phoenix - 1901/)
-        expect( $stdout ).to receive(:puts).with(/2. Tokyo Police Club - Wait Up/)
-        expect( $stdout ).to receive(:puts).with(/3. Sufjan Stevens - Too Much/)
-        expect( $stdout ).to receive(:puts).with(/4. The Naked and the Famous - Young Blood/)
-        expect( $stdout ).to receive(:puts).with(/5. \(Far From\) Home - Tiga/)
-        expect( $stdout ).to receive(:puts).with(/6. The Cults - Abducted/)
-        expect( $stdout ).to receive(:puts).with(/7. Phoenix - Consolation Prizes/)
-        expect( $stdout ).to receive(:puts).with(/8. Harry Chapman - Cats in the Cradle/)
-        expect( $stdout ).to receive(:puts).with(/9. Amos Lee - Keep It Loose, Keep It Tight/)
-        list(songs)
-      end
-    end
 
     describe "#exit_jukebox" do
       it "terminates the running of the program and outputs 'Goodbye'" do
@@ -111,7 +113,7 @@ describe "CLI Jukebox" do
       expect{ run(songs) }.to output(/1. Phoenix - 1901/).to_stdout
       allow(self).to receive(:gets).and_return("list", "exit")
       expect{ run(songs) }.to output(/9. Amos Lee - Keep It Loose, Keep It Tight/).to_stdout
-      
+
     end
 
     it "responds to 'play'" do
